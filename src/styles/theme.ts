@@ -1,6 +1,8 @@
 import { extendTheme } from "@chakra-ui/react"
 const theme = extendTheme({
-    styles:{},
+    styles:{
+        direction: 'rtl'
+    },
     colors: {
         transparent: 'transparent',
         primary: {

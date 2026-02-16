@@ -21,6 +21,7 @@ export default function Header() {
         bg="white"
         px={6}
         py={4}
+        height="68px"
         shadow="sm"
         position="sticky"
         top="0"

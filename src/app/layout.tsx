@@ -2,8 +2,10 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import { Providers } from './providers'
-import Navbar from "../components/Header";
-import Footer from "../components/Footer";
+import { ReduxProviders } from './reduxProvider'
+import Navbar from "../components/layout/Header";
+import Footer from "../components/layout/Footer";
+import { Box } from '@chakra-ui/react'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -20,11 +22,15 @@ export default function RootLayout({
   return (
     <html lang="en" dir="rtl">
       <body>
+      <ReduxProviders>
       <Providers>
-      <Navbar />   
+      <Navbar />  
+      <Box minH={{ base: "calc(100vh - 270px)", md: "calc(100vh - 228px)" }} display="flex" justifyContent="center" alignItems="center">
         {children}
+        </Box> 
         <Footer />
         </Providers>
+        </ReduxProviders>
         </body>
     </html>
   )

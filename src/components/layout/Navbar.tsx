@@ -21,7 +21,7 @@ export default function Navbar() {
         <HStack as="nav" spacing={6} display={{ base: "none", md: "flex" }}>
           <Link fontSize="12px" href="#" _hover={{ textDecoration: "underline" }}>کاربران</Link>
           <Link fontSize="12px" href="./products" _hover={{ textDecoration: "underline" }}>محصولات</Link>
-          <Link fontSize="12px" href="#" _hover={{ textDecoration: "underline" }}>بازی ها</Link>
+          <Link fontSize="12px" href="./games" _hover={{ textDecoration: "underline" }}>بازی ها</Link>
           <Link fontSize="12px" href="./" _hover={{ textDecoration: "underline" }}>خانه</Link>
         </HStack>
 

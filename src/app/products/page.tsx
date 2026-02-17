@@ -64,7 +64,7 @@ export default function HomePage() {
           {products.length > 0 && (
             <Box
               display="grid"
-              gridTemplateColumns="repeat(auto-fit, minmax(220px, 1fr))"
+              gridTemplateColumns="repeat(auto-fit, minmax(162px, 1fr))"
               gap={4}
             >
               {products.map((product: Product) => (

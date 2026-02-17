@@ -10,7 +10,7 @@ export default function Navbar() {
         h="50px"
         shadow="sm"
         position="sticky"
-        top="0"
+        top="68"
         zIndex="100"
         borderBottom="1px solid"
         borderColor="gray.200"

@@ -1,29 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-
+//import { Game, RawgResponse } from "../types/game.types";
+import { GameState, RawgResponse } from "@/features/games/types/game.types";
+import { getGames } from "@/features/games/services/gamesService";
 // TypeScript type
-export interface Game {
-    id: number;
-    name: string;
-    rating: number;
-    released: string;
-    genres: { id: number; name: string }[];
-    background_image: string | null;
-    [key: string]: any;
-}
 
-interface RawgResponse {
-    results: Game[];
-    count: number;
-}
 
-interface GameState {
-    loading: boolean;
-    results: Game[];
-    error: string | null;
-    currentPage: number;
-    totalPages: number;
-    count: number;
-}
+
 
 const initialState: GameState = {
     loading: false,
@@ -34,15 +16,14 @@ const initialState: GameState = {
     count: 0,
 };
 
-// Async thunk برای گرفتن بازی‌ها
+
 export const fetchGames = createAsyncThunk<RawgResponse, { page: number }>(
     "games/fetchGames",
     async ({ page }) => {
-        const res = await fetch(`https://api.rawg.io/api/games?key=3d6c1fae19c3464fa0e8b2c9fc9bacc0&page=${page}&page_size=20`);
-        const data: RawgResponse = await res.json();
-        return data;
+        return await getGames(page);
     }
 );
+
 
 const GamesSlice = createSlice({
     name: "Games",

@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { Box, Image, IconButton, Text, Badge, Flex } from "@chakra-ui/react";
 import { FiHeart } from "react-icons/fi";
+import { IoIosStar } from "react-icons/io";
 
 export interface GameCardProps {
   data: {
@@ -79,22 +80,23 @@ const GameCard: React.FC<GameCardProps> = ({ data, onClick }) => {
         {name}
       </Text>
 
-      {/* price */}
+      {/* rating */}
+      <IoIosStar direction="ltr" color="#e2b924"/>
       <Text flexWrap="wrap" fontSize="16px" dir="ltr" color="#242424" fontWeight="bold">
-        ${rating}
+        {rating}
       </Text>
       {/* genres */}
         {genres && genres.length > 0 && (
-<Text flexWrap="wrap" colorScheme="blue" fontSize="10px" mt={1}>
+<Text flexWrap="wrap" colorScheme="blue" fontSize="10px" mt={1} dir="ltr" color="red">
 {genres.map((g)=>g.name).join(", ")}
 </Text>
         )}
           
       
 
-      {/* category */}
+      {/* released */}
       {released && (
-        <Text flexWrap="wrap" dir="ltr"  color="red" fontSize="12px"  mt={1} >
+        <Text flexWrap="wrap" dir="ltr"   fontSize="12px"  mt={1} >
           
     {released}
 

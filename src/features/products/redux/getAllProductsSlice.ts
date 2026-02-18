@@ -1,20 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-
+import { Product, ProductState } from "@/features/products/types/product.types";
+import { getProducts } from "@/features/products/services/productsService";
 // TypeScript type (اگر پروژه TS داری)
-export interface Product {
-  id: number;
-  title: string;
-  description: string;
-  price: number;
-  images: string[];
-  [key: string]: any; // اگر فیلد اضافی بود
-}
-
-interface ProductState {
-  loading: boolean;
-  products: Product[];
-  error: string | null;
-}
 
 const initialState: ProductState = {
   loading: false,
@@ -26,9 +13,7 @@ const initialState: ProductState = {
 export const fetchProducts = createAsyncThunk<Product[]>(
   "products/fetchProducts",
   async () => {
-    const res = await fetch("https://dummyjson.com/products");
-    const data = await res.json();
-    return data.products || [];
+    return await getProducts();
   }
 );
 
@@ -53,5 +38,4 @@ const productsSlice = createSlice({
       });
   },
 });
-
 export default productsSlice.reducer;

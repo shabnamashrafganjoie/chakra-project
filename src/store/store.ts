@@ -1,10 +1,10 @@
 import { configureStore  } from "@reduxjs/toolkit";
-import productsReducer from "./slices/getAllProductsSlice";
-import gamesReducer from "./slices/getAllGamesSlice"
+import {getAllProductsReducer} from "./slices/productsSlice";
+import {getAllGamesReducer} from "./slices/gamesSlice"
 const store = configureStore({
     reducer:{
-       products: productsReducer,
-        games: gamesReducer,
+       products: getAllProductsReducer,
+        games: getAllGamesReducer,
     },
 });
 

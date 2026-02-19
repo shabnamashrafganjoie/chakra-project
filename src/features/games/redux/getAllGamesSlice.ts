@@ -17,13 +17,12 @@ const initialState: GameState = {
 };
 
 
-export const fetchGames = createAsyncThunk<RawgResponse, { page: number }>(
-    "games/fetchGames",
-    async ({ page }) => {
-        return await getGames(page);
-    }
+export const fetchGames = createAsyncThunk(
+  "games/fetchGames",
+  async ({ page }: { page: number }) => {
+    return await getGames(page);
+  }
 );
-
 
 const GamesSlice = createSlice({
     name: "Games",
@@ -44,7 +43,7 @@ const GamesSlice = createSlice({
             })
             .addCase(fetchGames.fulfilled, (state, action) => {
                 state.loading = false;
-                state.results = action.payload.results;
+                state.results = action.payload.games;
                 state.count = action.payload.count;
                 state.currentPage = action.meta.arg.page || 1;
                 state.totalPages = Math.ceil(action.payload.count / 20); // 20 بازی در هر صفحه

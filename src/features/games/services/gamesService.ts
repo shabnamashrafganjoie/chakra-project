@@ -1,10 +1,22 @@
-import { RawgResponse } from "@/features/games/types/game.types";
-const API_KEY = "3d6c1fae19c3464fa0e8b2c9fc9bacc0";
-const PAGE_SIZE = 20;
-export const getGames = async (page: number): Promise<RawgResponse> => {
-    const res = await fetch(
-        `https://api.rawg.io/api/games?key=${API_KEY}&page=${page}&page_size=${PAGE_SIZE}`
-    );
-    const data: RawgResponse = await res.json();
-    return data;
-};
+import { Game } from "@/features/games/types/game.types";
+import { fetchAllGames,fetchGame } from "@/features/games/repositories/gamesRepository";
+
+export const getGames = async (page: number): Promise<{games:Game[],count:number}> => {
+  const data = await fetchAllGames(page);
+
+  return {
+    games: data.results,
+    count: data.count
+  };};
+
+
+
+  export const getGameById = async (id: number): Promise<Game> => {
+  
+    return await fetchGame(id);
+  };
+
+
+
+
+

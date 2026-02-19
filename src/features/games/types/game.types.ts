@@ -21,3 +21,10 @@ export interface GameState {
     totalPages: number;
     count: number;
 }
+
+
+export interface GameDetailState {
+  loading: boolean;
+  game: Game | null;
+  error: string | null;
+}

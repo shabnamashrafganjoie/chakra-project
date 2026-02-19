@@ -9,7 +9,7 @@ export default function ProductDetailPage() {
   const productId = Number(id);
   const { product, loading, error } = useProduct(productId);
 
-  const [activeImage, setActiveImage] = useState(0); // کدوم عکس بزرگ نشون داده بشه
+  const [activeImage, setActiveImage] = useState(0);
 
   if (loading) return <Spinner size="xl" />;
   if (error) return <Text color="red.500">{error}</Text>;
@@ -43,13 +43,12 @@ export default function ProductDetailPage() {
               borderRadius="md"
               cursor="pointer"
               border={activeImage === idx ? "2px solid black" : "1px solid #ddd"}
-              onClick={() => setActiveImage(idx)} // وقتی کلیک شد عکس بزرگ عوض بشه
+              onClick={() => setActiveImage(idx)} 
             />
           ))}
         </HStack>
       </Box>
 
-      {/* اطلاعات محصول */}
       <Box flex="1" display="flex" flexDirection="column" gap={4} dir="ltr">
         <Text fontSize="3xl" fontWeight="bold">
           {product.title}

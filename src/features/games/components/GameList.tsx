@@ -10,10 +10,12 @@ import type { Game } from "@/features/games/types/game.types";
 
 import { Box, Button, Flex, Heading } from "@chakra-ui/react";
 import GameCard from "./GameCard";
+import { useRouter } from "next/navigation";
+
 
 export default function GamePage() {
   const dispatch = useDispatch<AppDispatch>();
-
+const router = useRouter();
   // گرفتن state محصولات از Redux
   const { loading, results, error,currentPage , totalPages   } = useSelector(
     (state: RootState) => state.games
@@ -84,7 +86,7 @@ export default function GamePage() {
               gap={4}
             >
               {results.map((game: Game) => (
-                <GameCard key={game.id} data={game} />
+                <GameCard key={game.id} data={game} onClick={()=>router.push(`/games/${game.id}`)}/>
               ))}
             </Box>
           )}

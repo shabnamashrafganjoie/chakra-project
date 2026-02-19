@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { Product, ProductState, ProductDetailState } from "@/features/products/types/product.types";
+import { Product, ProductDetailState } from "@/features/products/types/product.types";
 import { getProductById } from "@/features/products/services/productsService";
 // TypeScript type (اگر پروژه TS داری)
 

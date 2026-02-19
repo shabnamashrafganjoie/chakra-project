@@ -12,3 +12,9 @@ export interface ProductState {
   products: Product[];
   error: string | null;
 }
+
+export interface ProductDetailState {
+  loading: boolean;
+  product: Product | null;
+  error: string | null;
+}

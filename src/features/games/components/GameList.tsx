@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchGames } from "@/features/games/redux/getAllGamesSlice";
 import Loading from "@/components/shared/Loading";
 import type { RootState, AppDispatch } from "@/store/store";
-import type { Game } from "@/features/games/redux/getAllGamesSlice";
+import type { Game } from "@/features/games/types/game.types";
 
 import { Box, Button, Flex, Heading } from "@chakra-ui/react";
 import GameCard from "./GameCard";

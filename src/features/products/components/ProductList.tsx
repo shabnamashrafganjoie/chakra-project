@@ -6,12 +6,14 @@ import { fetchProducts } from "@/features/products/redux/getAllProductsSlice";
 import Loading from "@/components/shared/Loading";
 import ProductCard from "@/features/products/components/ProductCard";
 import type { RootState, AppDispatch } from "@/store/store";
-import type { Product } from "@/features/products/redux/getAllProductsSlice";
-
+import type { Product } from "@/features/products/types/product.types";
+import { useRouter } from "next/navigation";
 import { Box, Heading } from "@chakra-ui/react";
+
 
 export default function HomePage() {
   const dispatch = useDispatch<AppDispatch>();
+  const router = useRouter();
 
   // گرفتن state محصولات از Redux
   const { loading, products, error } = useSelector(
@@ -68,7 +70,7 @@ export default function HomePage() {
               gap={4}
             >
               {products.map((product: Product) => (
-                <ProductCard key={product.id} data={product} />
+                <ProductCard key={product.id} data={product} onClick={() => router.push(`/products/${product.id}`)} />
               ))}
             </Box>
           )}

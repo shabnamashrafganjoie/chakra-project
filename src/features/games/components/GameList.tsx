@@ -11,33 +11,24 @@ import type { Game } from "@/features/games/types/game.types";
 import { Box, Button, Flex, Heading } from "@chakra-ui/react";
 import GameCard from "./GameCard";
 import { useRouter } from "next/navigation";
-
+import Search from "@/components/shared/SerchBox";
+import { useSearchParams } from "next/navigation";
 
 export default function GamePage() {
   const dispatch = useDispatch<AppDispatch>();
 const router = useRouter();
   // گرفتن state محصولات از Redux
-  const { loading, results, error,currentPage , totalPages   } = useSelector(
+  const { loading, results, error,next , previous , count   } = useSelector(
     (state: RootState) => state.games
   );
-
+const searchParams = useSearchParams();
+const searchQuery = searchParams.get("search") || "";
   useEffect(() => {
-    dispatch(fetchGames({ page: 1 }));
-  }, [dispatch]);
+    dispatch(fetchGames({ page: 1,search: searchQuery }));
+    console.log("Search Query:", searchQuery);
+  }, [dispatch,searchQuery]);
 
 
-
-  const handleNext = () => {
-    if (currentPage < totalPages) {
-      dispatch(fetchGames({ page: currentPage + 1 }));
-    }
-  };
-
-  const handlePrev = () => {
-    if (currentPage > 1) {
-      dispatch(fetchGames({ page: currentPage - 1 }));
-    }
-  };
 
 
   return (
@@ -66,15 +57,7 @@ const router = useRouter();
           h="fit-content"
           bg="gray.50"
         >
-          <Heading as="h3" size="md" mb={4}>
-            Sidebar
-          </Heading>
-          {/* محتویات sidebar */}
-          <Box>
-            <p>Filter by category</p>
-            <p>Filter by price</p>
-            <p>Other filters...</p>
-          </Box>
+         <Search />
         </Box>
 
         {/* سمت چپ: محصولات */}
@@ -97,10 +80,30 @@ const router = useRouter();
 
 {/* Pagination buttons */}
 <Flex gap={4} mt={6}>
-  <Button onClick={handleNext} disabled={currentPage >= totalPages}>
+  <Button
+    onClick={() => {
+      if (next) {
+        const url = new URL(next);
+        const page = Number(url.searchParams.get("page") || 1);
+        dispatch(fetchGames({ page, search: searchQuery }));
+      }
+    }}
+    disabled={!next}
+  >
     Next
   </Button>
-  <Button onClick={handlePrev} disabled={currentPage < 2}>
+
+  <Button
+    onClick={() => {
+      if (previous) {
+        const url = new URL(previous);
+        const page = Number(url.searchParams.get("page") || 1);
+
+        dispatch(fetchGames({ page, search: searchQuery }));
+      }
+    }}
+    disabled={!previous}
+  >
     Previous
   </Button>
 </Flex>

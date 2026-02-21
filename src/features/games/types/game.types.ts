@@ -16,8 +16,10 @@ export interface GamePlatform {
   };
 }
 export interface RawgResponse {
-    results: Game[];
-    count: number;
+  count: number;
+  next: string | null;
+  previous: string | null;
+  results: Game[];
 }
 
 export interface GameState {
@@ -34,4 +36,14 @@ export interface GameDetailState {
   loading: boolean;
   game: Game | null;
   error: string | null;
+}
+
+export interface GamePaginationList {
+  count: number;
+  next : string | null;
+  previous : string | null;
+  results : Game[];
+   loading: boolean;
+   error: string | null;
+
 }

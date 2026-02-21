@@ -1,38 +1,40 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 //import { Game, RawgResponse } from "../types/game.types";
-import { GameState, RawgResponse } from "@/features/games/types/game.types";
+import { GamePaginationList, RawgResponse } from "@/features/games/types/game.types";
 import { getGames } from "@/features/games/services/gamesService";
 // TypeScript type
 
 
 
 
-const initialState: GameState = {
+const initialState: GamePaginationList = {
     loading: false,
     results: [],
     error: null,
-    currentPage: 1,
-    totalPages: 0,
-    count: 0,
-};
+    next:null,
+    previous:null,
+    count:0,
+}
 
 
-export const fetchGames = createAsyncThunk(
+export const fetchGames = createAsyncThunk<
+  RawgResponse,     
+  { page: number , search ?: string }
+>(
   "games/fetchGames",
-  async ({ page }: { page: number }) => {
-    return await getGames(page);
+  async ({ page,search = "" }) => {
+    return await getGames(page,search);
   }
 );
-
 const GamesSlice = createSlice({
     name: "Games",
     initialState,
     reducers: {
         resetGames: (state) => {
             state.results = [];
-            state.currentPage = 1;
-            state.totalPages = 0;
             state.count = 0;
+     
+
         },
     },
     extraReducers: (builder) => {
@@ -43,10 +45,12 @@ const GamesSlice = createSlice({
             })
             .addCase(fetchGames.fulfilled, (state, action) => {
                 state.loading = false;
-                state.results = action.payload.games;
+                state.results = action.payload.results;
                 state.count = action.payload.count;
-                state.currentPage = action.meta.arg.page || 1;
-                state.totalPages = Math.ceil(action.payload.count / 20); // 20 بازی در هر صفحه
+                state.next = action.payload.next;
+                state.previous= action.payload.previous;
+
+                
             })
             .addCase(fetchGames.rejected, (state, action) => {
                 state.loading = false;

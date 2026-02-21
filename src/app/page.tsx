@@ -1,13 +1,29 @@
-import { Link } from '@chakra-ui/next-js'
-import { Box, Button } from '@chakra-ui/react'
-export default function Home() {
+"use client";
+import MultiSelectDropdown from "@/components/ui/MultiSelectDropdown";
+import { useState, useEffect } from "react";
+
+export default function GameFilter() {
+  const [products, setProducts] = useState<any[]>([]);
+  const [selected, setSelected] = useState<any[]>([]);
+
+  useEffect(() => {
+    fetch("https://dummyjson.com/products")
+      .then(res => res.json())
+      .then(data => setProducts(data.products));
+  }, []);
+
   return (
-    <>
-    <Link href='/about' color='blue.400' _hover={{ color: 'blue.500' }}>
-      About
-    </Link>
-    <Button backgroundColor={"primary.100"}>click me</Button>
-    <Box bg={{ base: "red", md: "blue" }} w={{ base: "100%", md: "50%" }}>shabnam ashraf ganjoie</Box>
-    </>
-  )
+    <div>
+      <MultiSelectDropdown
+        options={products}
+        onChange={setSelected}
+      />
+      <div className="mt-4">
+        <h2>محصولات انتخاب شده:</h2>
+        {selected.map(p => (
+          <div key={p.id}>{p.title}</div>
+        ))}
+      </div>
+    </div>
+  );
 }

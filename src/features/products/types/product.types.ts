@@ -3,6 +3,8 @@ export interface Product {
   title: string;
   description: string;
   price: number;
+    category?: string;
+  brand?: string;
   images: string[];
   [key: string]: any; // اگر فیلد اضافی بود
 }

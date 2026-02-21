@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchProducts } from "@/features/products/redux/getAllProductsSlice";
 import Loading from "@/components/shared/Loading";
@@ -9,8 +9,7 @@ import type { RootState, AppDispatch } from "@/store/store";
 import type { Product } from "@/features/products/types/product.types";
 import { useRouter } from "next/navigation";
 import { Box, Heading } from "@chakra-ui/react";
-
-
+import MultiSelectDropdown from "@/components/ui/MultiSelectDropdown";
 export default function HomePage() {
   const dispatch = useDispatch<AppDispatch>();
   const router = useRouter();
@@ -19,7 +18,7 @@ export default function HomePage() {
   const { loading, products, error } = useSelector(
     (state: RootState) => state.products
   );
-
+const [selectedProducts, setSelectedProducts] = useState<Product[]>([]);
   useEffect(() => {
     dispatch(fetchProducts());
   }, [dispatch]);
@@ -42,24 +41,17 @@ export default function HomePage() {
         width="100%"
       >
         {/* سمت راست: sidebar */}
-        <Box
-          w={{ base: "100%", md: "30%" }}
-          border="1px solid #ddd"
-          p={4}
-          rounded="md"
-          h="fit-content"
-          bg="gray.50"
-        >
-          <Heading as="h3" size="md" mb={4}>
-            Sidebar
-          </Heading>
-          {/* محتویات sidebar */}
-          <Box>
-            <p>Filter by category</p>
-            <p>Filter by price</p>
-            <p>Other filters...</p>
-          </Box>
-        </Box>
+  <Box w={{ base: "100%", md: "30%" }} border="1px solid #ddd" p={4} rounded="md" h="fit-content" bg="gray.50">
+  <Heading as="h3" size="md" mb={4}>فیلتر محصولات</Heading>
+
+  {/* MultiSelectDropdown */}
+  <MultiSelectDropdown
+  options={products} // آرایه کامل محصولات از Redux
+  onChange={(selected) => setSelectedProducts(selected)} // انتخاب‌ها رو نگه دار
+/>
+
+
+</Box>
 
         {/* سمت چپ: محصولات */}
         <Box w={{ base: "100%", md: "70%" }}>
@@ -69,9 +61,13 @@ export default function HomePage() {
               gridTemplateColumns="repeat(auto-fit, minmax(162px, 1fr))"
               gap={4}
             >
-              {products.map((product: Product) => (
-                <ProductCard key={product.id} data={product} onClick={() => router.push(`/products/${product.id}`)} />
-              ))}
+           {(selectedProducts.length > 0 ? selectedProducts : products).map((product: Product) => (
+  <ProductCard
+    key={product.id}
+    data={product}
+    onClick={() => router.push(`/products/${product.id}`)}
+  />
+))}
             </Box>
           )}
         </Box>

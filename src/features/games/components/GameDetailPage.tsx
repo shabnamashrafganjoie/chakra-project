@@ -5,6 +5,7 @@ import { useParams } from "next/navigation";
 import { useGame } from "@/features/games/hooks/useGames";
 import { useState } from "react";
 import { FaStar } from "react-icons/fa";
+import { GamePlatform } from "../types/game.types";
 
 export default function GameDetailPage() {
   const params = useParams();
@@ -76,6 +77,14 @@ export default function GameDetailPage() {
     {game.rating ?? "N/A"}
   </Text>
 </Flex>
+
+
+{game.parent_platforms && game.parent_platforms.length > 0 && (
+  <Text flexWrap="wrap" colorScheme="blue" fontSize="10px" mt={1} dir="ltr" >
+    {game.parent_platforms.map((pp: GamePlatform) => pp.platform?.name).filter(Boolean).join(", ")}
+  </Text>
+)}
+      
 
         <HStack mt={4}>
           <Button size="lg" colorScheme="brand">Add to cart</Button>

@@ -15,8 +15,4 @@ export const getGames = async (page: number): Promise<{games:Game[],count:number
   
     return await fetchGame(id);
   };
-
-
-
-
-
+  

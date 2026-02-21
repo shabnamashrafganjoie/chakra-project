@@ -5,9 +5,16 @@ export interface Game {
     released: string;
     genres: { id: number; name: string }[];
     background_image: string | null;
+    parent_platforms: GamePlatform[];
     [key: string]: any;
 }
-
+export interface GamePlatform {
+  platform: {
+    name: string;
+       id?: number;
+    slug?: string;
+  };
+}
 export interface RawgResponse {
     results: Game[];
     count: number;

@@ -5,6 +5,9 @@ import { Box, Image, IconButton, Text, Badge, Flex } from "@chakra-ui/react";
 import { FiHeart } from "react-icons/fi";
 import { IoIosStar } from "react-icons/io";
 import { FaStar } from "react-icons/fa";
+import { Result } from "postcss";
+import { GamePlatform } from "../types/game.types";
+
 
 export interface GameCardProps {
   data: {
@@ -14,6 +17,7 @@ export interface GameCardProps {
     released:string;
     genres: { id: number; name: string }[];
   background_image: string | null;
+  parent_platforms: GamePlatform[];
   [key: string]: any; 
   };
   onClick?: () => void;
@@ -109,6 +113,16 @@ const GameCard: React.FC<GameCardProps> = ({ data, onClick }) => {
           
         </Text>
       )}
+
+
+{data.parent_platforms && data.parent_platforms.length > 0 && (
+  <Text flexWrap="wrap" colorScheme="blue" fontSize="10px" mt={1} dir="ltr" >
+    {data.parent_platforms.map((pp: GamePlatform) => pp.platform?.name).filter(Boolean).join(", ")}
+  </Text>
+)}
+       
+
+     
     </Box>
   );
 };

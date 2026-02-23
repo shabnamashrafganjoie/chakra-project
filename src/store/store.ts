@@ -1,12 +1,13 @@
 import { configureStore  } from "@reduxjs/toolkit";
 import {getAllProductsReducer,getProductDetailReducer} from "./slices/productsSlice";
-import {getAllGamesReducer, getGameDetailReducer} from "./slices/gamesSlice"
+import {getAllGamesReducer, getGameDetailReducer, gameMetaReducer} from "./slices/gamesSlice"
 const store = configureStore({
     reducer:{
        products: getAllProductsReducer,
         games: getAllGamesReducer,
         product:getProductDetailReducer,
         game: getGameDetailReducer,
+        gameMeta: gameMetaReducer,
     },
 });
 

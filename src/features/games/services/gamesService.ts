@@ -3,9 +3,10 @@ import { fetchAllGames,fetchGame } from "@/features/games/repositories/gamesRepo
 import { RawgResponse } from "@/features/games/types/game.types";
 
 export const getGames = async (
-  page: number, search: string = ""
+  page: number, search: string = "", genres?: number[],
+  parent_platforms?: number[]
 ): Promise<RawgResponse> => {
-  return await fetchAllGames(page,search);
+  return await fetchAllGames(page,search,genres, parent_platforms);
 };
 
 

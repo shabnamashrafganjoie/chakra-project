@@ -13,6 +13,7 @@ import GameCard from "./GameCard";
 import { useRouter } from "next/navigation";
 import Search from "@/components/shared/SerchBox";
 import { useSearchParams } from "next/navigation";
+import GameFilterSidebar from "./GameFiltersSidebar";
 
 export default function GamePage() {
   const dispatch = useDispatch<AppDispatch>();
@@ -23,10 +24,18 @@ const router = useRouter();
   );
 const searchParams = useSearchParams();
 const searchQuery = searchParams.get("search") || "";
+
+
+const genresParam = searchParams.get("genres") || "";
+const platformsParam = searchParams.get("parent_platforms") || "";
+
+const genres = genresParam ? genresParam.split(",").map(Number) : [];
+const platforms = platformsParam ? platformsParam.split(",").map(Number) : [];
   useEffect(() => {
-    dispatch(fetchGames({ page: 1,search: searchQuery }));
+    dispatch(fetchGames({ page: 1,search: searchQuery,genres,
+      parent_platforms: platforms }));
     console.log("Search Query:", searchQuery);
-  }, [dispatch,searchQuery]);
+  }, [dispatch,searchQuery, genresParam, platformsParam]);
 
 
 
@@ -58,6 +67,8 @@ const searchQuery = searchParams.get("search") || "";
           bg="gray.50"
         >
          <Search />
+
+         <GameFilterSidebar searchQuery={searchQuery} />
         </Box>
 
         {/* سمت چپ: محصولات */}
@@ -76,7 +87,6 @@ const searchQuery = searchParams.get("search") || "";
         </Box>
       </Box>
 
-      {/* <Box>Page: {currentPage} / {totalPages}</Box> */}
 
 {/* Pagination buttons */}
 <Flex gap={4} mt={6}>
@@ -85,7 +95,7 @@ const searchQuery = searchParams.get("search") || "";
       if (next) {
         const url = new URL(next);
         const page = Number(url.searchParams.get("page") || 1);
-        dispatch(fetchGames({ page, search: searchQuery }));
+        dispatch(fetchGames({ page, search: searchQuery, genres, parent_platforms: platforms }));
       }
     }}
     disabled={!next}
@@ -99,7 +109,7 @@ const searchQuery = searchParams.get("search") || "";
         const url = new URL(previous);
         const page = Number(url.searchParams.get("page") || 1);
 
-        dispatch(fetchGames({ page, search: searchQuery }));
+        dispatch(fetchGames({ page, search: searchQuery, genres, parent_platforms: platforms }));
       }
     }}
     disabled={!previous}

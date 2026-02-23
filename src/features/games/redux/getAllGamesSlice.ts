@@ -5,7 +5,12 @@ import { getGames } from "@/features/games/services/gamesService";
 // TypeScript type
 
 
-
+export interface FetchGamesParams {
+  page: number;
+  search?: string;
+  genres?: number[];
+  parent_platforms?: number[];
+}
 
 const initialState: GamePaginationList = {
     loading: false,
@@ -19,11 +24,13 @@ const initialState: GamePaginationList = {
 
 export const fetchGames = createAsyncThunk<
   RawgResponse,     
-  { page: number , search ?: string }
+//   FetchGamesParams
+  { page: number , search ?: string, genres?: number[],
+    parent_platforms?: number[] }
 >(
   "games/fetchGames",
-  async ({ page,search = "" }) => {
-    return await getGames(page,search);
+  async ({ page,search = "", genres = [], parent_platforms = [] }) => {
+    return await getGames(page,search, genres, parent_platforms);
   }
 );
 const GamesSlice = createSlice({

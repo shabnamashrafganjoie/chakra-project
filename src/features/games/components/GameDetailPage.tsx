@@ -86,10 +86,7 @@ export default function GameDetailPage() {
 )}
       
 
-        <HStack mt={4}>
-          <Button size="lg" colorScheme="brand">Add to cart</Button>
-          <Button size="lg" variant="outline">Favorite</Button>
-        </HStack>
+ 
       </Box>
     </Flex>
   );

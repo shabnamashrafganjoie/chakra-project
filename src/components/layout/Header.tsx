@@ -8,13 +8,16 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
-  Link
+  Link,
+  Button
 } from "@chakra-ui/react";
 
 import { HamburgerIcon, SearchIcon } from "@chakra-ui/icons";
 import Navbar from "./Navbar";
+import { useSession, signOut } from "next-auth/react";
 
 export default function Header() {
+  const { data: session } = useSession();
   return (
     <>
       <Box
@@ -107,18 +110,22 @@ export default function Header() {
             justify="flex-end"
           >
             <HStack spacing={3}>
-            <Link display={{ base: "none", md: "block" }} fontSize="12px" href="#" _hover={{ textDecoration: "underline" }}>ورود/‌ثبت‌نام</Link>
+              {session?.user ? (
+                  <>
+            <Text>{(session.user as any).username || session.user.name}</Text>
+            <Button size="sm" colorScheme="green" onClick={() => signOut({ callbackUrl: "/" })}>
+              خروج
+            </Button>
+          </>
 
-              {/* <IconButton
-                aria-label="menu"
-                icon={<HamburgerIcon />}
-                display={{ base: "flex", md: "none" }}
-                variant="ghost"
-              /> */}
+ ) : (
+           <>
+            <Link display={{ base: "none", md: "block" }} fontSize="12px" href="/auth/login" _hover={{ textDecoration: "underline" }}>ورود</Link>
 
 
-<Link display={{ base: "block", md: "none" }} fontSize="12px" href="#" _hover={{ textDecoration: "underline" }}>ورود/‌ثبت‌نام</Link>
-
+<Link display={{ base: "block", md: "none" }} fontSize="12px" href="/auth/login" _hover={{ textDecoration: "underline" }}>ورود</Link>
+                </>
+        )}
             </HStack>
           </Flex>
         </Flex>

@@ -70,7 +70,7 @@ NEXTAUTH_SECRET=your-secret-key-here
 
 
 # API Keys (if needed)
-RAWG_API_KEY=your-rawg-api-key-here   # Only if you use a proxy or your own key
+NEXT_PUBLIC_RAWG_API_KEY=your-rawg-api-key-here   # Only if you use a proxy or your own key
 
 
 ---

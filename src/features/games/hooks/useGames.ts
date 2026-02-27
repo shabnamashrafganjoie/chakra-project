@@ -9,8 +9,11 @@ export const useGame = (id: number) => {
   const game = useSelector((state: RootState) => state.game.game);
   const loading = useSelector((state: RootState) => state.game.loading);
   const error = useSelector((state: RootState) => state.game.error);
+  // NOTE: Custom hook for fetching and accessing a single game by ID
 
   useEffect(() => {
+        // NOTE: Fetches game data when component mounts or id changes
+
     dispatch(fetchGameById(id));
   }, [dispatch, id]);
 

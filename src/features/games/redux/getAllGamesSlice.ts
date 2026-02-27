@@ -1,12 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-//import { Game, RawgResponse } from "../types/game.types";
 import { GamePaginationList, RawgResponse } from "@/features/games/types/game.types";
 import { getGames } from "@/features/games/services/gamesService";
 // TypeScript type
 
 
 export interface FetchGamesParams {
-  page: number;
+  page?: number;
   search?: string;
   genres?: number[];
   parent_platforms?: number[];
@@ -23,16 +22,16 @@ const initialState: GamePaginationList = {
 
 
 export const fetchGames = createAsyncThunk<
-  RawgResponse,     
-//   FetchGamesParams
-  { page: number , search ?: string, genres?: number[],
-    parent_platforms?: number[] }
+  RawgResponse,
+  FetchGamesParams | undefined   // Allow undefined as well
 >(
   "games/fetchGames",
-  async ({ page,search = "", genres = [], parent_platforms = [] }) => {
-    return await getGames(page,search, genres, parent_platforms);
+  async (params = {}) => {   // Default value is empty object
+    const { page = 1, search = "", genres = [], parent_platforms = [] } = params;
+    return await getGames(page, search, genres, parent_platforms);
   }
 );
+
 const GamesSlice = createSlice({
     name: "Games",
     initialState,
@@ -40,7 +39,8 @@ const GamesSlice = createSlice({
         resetGames: (state) => {
             state.results = [];
             state.count = 0;
-     
+                 // NOTE: next and previous are not reset - might cause inconsistency
+
 
         },
     },
@@ -56,6 +56,7 @@ const GamesSlice = createSlice({
                 state.count = action.payload.count;
                 state.next = action.payload.next;
                 state.previous= action.payload.previous;
+                // NOTE: This replaces results instead of appending - suitable for new searches/filters
 
                 
             })

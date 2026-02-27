@@ -14,11 +14,14 @@ const initialState: MetaState = {
   genres: [],
   platforms: [],
   loading: false,
+  
 };
 
 export const fetchMetaData = createAsyncThunk(
   "games/fetchMetaData",
   async () => {
+        // NOTE: Fetching both genres and platforms in parallel using Promise.all
+
     const [genres, platforms] = await Promise.all([
       getGenres(),
       getParentPlatforms(),

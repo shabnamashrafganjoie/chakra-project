@@ -1,0 +1,22 @@
+export interface Product {
+  id: number;
+  title: string;
+  description: string;
+  price: number;
+    category?: string;
+  brand?: string;
+  images: string[];
+  [key: string]: any; 
+}
+
+export interface ProductState {
+  loading: boolean;
+  products: Product[];
+  error: string | null;
+}
+
+export interface ProductDetailState {
+  loading: boolean;
+  product: Product | null;
+  error: string | null;
+}

@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { Product, ProductDetailState } from "@/features/products/types/product.types";
 import { getProductById } from "@/features/products/services/productsService";
-// TypeScript type (اگر پروژه TS داری)
 
 const initialState: ProductDetailState = {
   loading: false,
@@ -9,10 +8,11 @@ const initialState: ProductDetailState = {
   error: null,
 };
 
-// Async thunk برای گرفتن محصولات
 export const fetchProductById = createAsyncThunk<Product,number>(
   "products/getProductById",
   async (id:number) => {
+        // NOTE: Fetch a single product by ID from the service layer
+
     return await getProductById(id);
   }
 );
@@ -20,12 +20,17 @@ export const fetchProductById = createAsyncThunk<Product,number>(
 const productDetailSlice = createSlice({
   name: "product",
   initialState,
-  reducers: {},
+  reducers: {
+        
+
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchProductById.pending, (state) => {
         state.loading = true;
         state.error = null;
+                // NOTE: product is not reset here, previous product data persists until new data arrives
+
       })
       .addCase(fetchProductById.fulfilled, (state, action) => {
         state.loading = false;

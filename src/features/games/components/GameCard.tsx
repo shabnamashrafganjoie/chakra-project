@@ -25,7 +25,7 @@ export interface GameCardProps {
 
 const GameCard: React.FC<GameCardProps> = ({ data, onClick }) => {
   const { background_image, genres = [], name, rating, released } = data;
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(0);// NOTE: activeIndex state is declared but never used
 
   return (
     <Box
@@ -40,7 +40,7 @@ const GameCard: React.FC<GameCardProps> = ({ data, onClick }) => {
       onClick={onClick}
       w="100%"
     >
-      {/* قلب */}
+      {/* Favorite button */}
       <IconButton
         aria-label="favorite"
         icon={<FiHeart />}
@@ -54,8 +54,8 @@ const GameCard: React.FC<GameCardProps> = ({ data, onClick }) => {
         _hover={{ bg: "gray.100" }}
         onClick={(e) => e.stopPropagation()}
       />
+      {/* Game image */}
 
-      {/* تصویر */}
       <Box
         h="150px"
         w="full"
@@ -79,13 +79,12 @@ const GameCard: React.FC<GameCardProps> = ({ data, onClick }) => {
 
      
       <Box borderBottom="1px" borderColor="gray.200" mb={2}></Box>
+      {/* Game title */}
 
-      {/* name */}
       <Text flexWrap="wrap" fontWeight="bold" color="#242424" fontSize="12px" dir="ltr" noOfLines={1}>
         {name}
       </Text>
-
-      {/* rating */}
+    {/* Rating */}
 
         <Flex align="center" gap={2} dir="ltr">
         <FaStar color="#facc15" />
@@ -94,8 +93,7 @@ const GameCard: React.FC<GameCardProps> = ({ data, onClick }) => {
         </Text>
       </Flex>
       
-      
-      {/* genres */}
+      {/* Genres */}
         {genres && genres.length > 0 && (
 <Text flexWrap="wrap" colorScheme="blue" fontSize="10px" mt={1} dir="ltr" color="red">
 {genres.map((g)=>g.name).join(", ")}
@@ -103,8 +101,7 @@ const GameCard: React.FC<GameCardProps> = ({ data, onClick }) => {
         )}
           
       
-
-      {/* released */}
+{/* Release date */}
       {released && (
         <Text flexWrap="wrap" dir="ltr"   fontSize="12px"  mt={1} >
           

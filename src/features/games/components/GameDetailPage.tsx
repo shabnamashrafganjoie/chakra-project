@@ -18,24 +18,24 @@ export default function GameDetailPage() {
   if (error) return <Text color="red.500">{error}</Text>;
   if (!game) return <Text>Game not found</Text>;
 
-  // ساخت آرایه تصاویر: اگر screenshot نیست، عکس اصلی یا placeholder
   const images = (game.short_screenshots?.map((s: any) => s.image) || [])
-    .filter(Boolean); // حذف مقادیر null/undefined
+    .filter(Boolean); 
+  // NOTE: Fallback to background_image if no screenshots
 
-  // اگر هیچ تصویری نیست، یک placeholder اضافه کن
   if (images.length === 0 && game.background_image) {
     images.push(game.background_image);
   }
+  // NOTE: Final fallback to placeholder image
 
   if (images.length === 0) {
-    images.push("/placeholder.png"); // عکس پیش‌فرض پروژه
+    images.push("/placeholder.png"); 
   }
 
   return (
     <Flex direction={{ base: "column", md: "row" }} gap={8} p={8}>
-      {/* گالری تصاویر */}
+            {/* Left column - Images */}
+
       <Box flex="1">
-        {/* عکس بزرگ */}
         <Box  borderRadius="xl" p={4}>
           <Image
             src={images[activeImage]}
@@ -63,14 +63,16 @@ export default function GameDetailPage() {
           ))}
         </HStack>
       </Box>
+      {/* Right column - Game details */}
 
-      {/* اطلاعات بازی */}
       <Box flex="1" display="flex" flexDirection="column" gap={4} dir="ltr">
         <Text fontSize="3xl" fontWeight="bold">{game.name}</Text>
         <Text fontSize="lg" fontWeight="bold">
             {game.genres.map((genre)=>genre.name ).join(", ")}
         </Text>
         <Text fontSize="lg" color="gray.600">Released: {game.released}</Text>
+         {/* Rating */}
+
   <Flex align="center" gap={2}>
   <FaStar color="#facc15" />
   <Text fontSize="lg" fontWeight="bold" >
@@ -78,7 +80,7 @@ export default function GameDetailPage() {
   </Text>
 </Flex>
 
-
+ {/* Platforms */}
 {game.parent_platforms && game.parent_platforms.length > 0 && (
   <Text flexWrap="wrap" colorScheme="blue" fontSize="10px" mt={1} dir="ltr" >
     {game.parent_platforms.map((pp: GamePlatform) => pp.platform?.name).filter(Boolean).join(", ")}

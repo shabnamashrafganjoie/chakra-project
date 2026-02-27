@@ -34,43 +34,26 @@ export default function GameFilterSidebar({ searchQuery }: Props) {
   const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
   const [selectedPlatforms, setSelectedPlatforms] = useState<string[]>([]);
 const router = useRouter();
+  // NOTE: Fetch metadata (genres and platforms) on component mount
+
   useEffect(() => {
     dispatch(fetchMetaData());
   }, [dispatch]);
-// useEffect(() => {
-//     const parentPlatform = searchParams.get("parent_platforms");
-
-//     dispatch(
-//       fetchGames({
-//         page: 1,
-//         parent_platforms: parentPlatform
-//           ? [Number(parentPlatform)]
-//           : [],
-//       })
-//     );
-//   }, [searchParams, dispatch]);
 
   const applyFilters = () => {
+        // NOTE: Reset games before applying new filters to clear previous results
+
     dispatch(resetGames());
  const genresParam = selectedGenres.map(Number).join(",");
   const platformsParam = selectedPlatforms.map(Number).join(",");
-    // dispatch(
-    //   fetchGames({
-    //     page: 1,
-    //     search: searchQuery,
-    //     genres: selectedGenres.map(Number),
-    //     parent_platforms: selectedPlatforms.map(Number),
-    //   })
-    // );
 
-     // آپدیت URL با پارامترها
   const query: Record<string, string> = {};
   if (searchQuery) query.search = searchQuery;
   if (genresParam) query.genres = genresParam;
   if (platformsParam) query.parent_platforms = platformsParam;
 
-  // ساخت query string
   const queryString = new URLSearchParams(query).toString();
+    // NOTE: Update URL with filter parameters and navigate
 
   router.push(`/games?${queryString}`);
   };
@@ -81,7 +64,7 @@ const router = useRouter();
         Filters
       </Heading>
 
-      {/* Genres */}
+      {/* Genres section */}
       <Heading size="sm" mb={3}>
         Genres
       </Heading>
@@ -101,7 +84,7 @@ const router = useRouter();
 
       <Divider my={6} />
 
-      {/* Platforms */}
+       {/* Platforms Section */}
       <Heading size="sm" mb={3}>
         Platforms
       </Heading>

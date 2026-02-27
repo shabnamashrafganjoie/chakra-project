@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { Product, ProductState } from "@/features/products/types/product.types";
-import { getProducts } from "@/features/products/services/productsService";
+import { Product, ProductState } from "@/features/admin/types/adminProduct.type";
+import { getProducts } from "@/features/admin/services/adminProductsService";
 
 const initialState: ProductState = {
   loading: false,
@@ -11,29 +11,27 @@ const initialState: ProductState = {
 export const fetchProducts = createAsyncThunk<Product[]>(
   "products/fetchProducts",
   async () => {
-        // NOTE: Fetch all products from the service layer
-
     return await getProducts();
   }
 );
-
+// NOTE: Creating a slice to manage products state
 const productsSlice = createSlice({
   name: "products",
   initialState,
-  reducers: {   
-},
+  reducers: {},
   extraReducers: (builder) => {
     builder
+      // NOTE: Pending state - when the request starts
       .addCase(fetchProducts.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
+      // NOTE: Fulfilled state - when the request is successful
       .addCase(fetchProducts.fulfilled, (state, action) => {
         state.loading = false;
         state.products = action.payload;
-         // NOTE: This replaces the entire products array - suitable for initial load
-
       })
+      // NOTE: Rejected state - when the request fails
       .addCase(fetchProducts.rejected, (state, action) => {
         state.loading = false;
         state.products = [];

@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { Game, GameDetailState } from "@/features/games/types/game.types";
 import { getGameById } from "@/features/games/services/gamesService";
-// TypeScript type (اگر پروژه TS داری)
 
 const initialState: GameDetailState = {
   loading: false,
@@ -9,10 +8,11 @@ const initialState: GameDetailState = {
   error: null,
 };
 
-// Async thunk برای گرفتن محصولات
 export const fetchGameById = createAsyncThunk<Game,number>(
   "Games/getGameById",
   async (id:number) => {
+        // NOTE: Fetch a single game by its ID
+
     return await getGameById(id);
   }
 );
@@ -26,6 +26,8 @@ const gameDetailSlice = createSlice({
       .addCase(fetchGameById.pending, (state) => {
         state.loading = true;
         state.error = null;
+                // NOTE: game is not reset here, previous game data persists until new data arrives
+
       })
       .addCase(fetchGameById.fulfilled, (state, action) => {
         state.loading = false;
@@ -38,4 +40,5 @@ const gameDetailSlice = createSlice({
       });
   },
 });
+
 export default gameDetailSlice.reducer;

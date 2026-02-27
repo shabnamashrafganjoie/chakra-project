@@ -1,6 +1,7 @@
 import { configureStore  } from "@reduxjs/toolkit";
 import {getAllProductsReducer,getProductDetailReducer} from "./slices/productsSlice";
 import {getAllGamesReducer, getGameDetailReducer, gameMetaReducer} from "./slices/gamesSlice"
+import { getAllAdminProductsReducer, getAllUsersReducer } from "./slices/adminsSlice";
 const store = configureStore({
     reducer:{
        products: getAllProductsReducer,
@@ -8,6 +9,8 @@ const store = configureStore({
         product:getProductDetailReducer,
         game: getGameDetailReducer,
         gameMeta: gameMetaReducer,
+        users: getAllUsersReducer,
+        adminProducts: getAllAdminProductsReducer,
     },
 });
 

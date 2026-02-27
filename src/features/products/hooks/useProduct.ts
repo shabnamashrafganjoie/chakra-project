@@ -9,8 +9,11 @@ export const useProduct = (id: number) => {
   const product = useSelector((state: RootState) => state.product.product);
   const loading = useSelector((state: RootState) => state.product.loading);
   const error = useSelector((state: RootState) => state.product.error);
+  // NOTE: Custom hook for fetching and accessing a single product by ID
 
   useEffect(() => {
+        // NOTE: Fetches product data when component mounts or id changes
+
     dispatch(fetchProductById(id));
   }, [dispatch, id]);
 

@@ -17,9 +17,8 @@ export default function ProductDetailPage() {
 
   return (
     <Flex direction={{ base: "column", md: "row" }} gap={8} p={8}>
-      {/* گالری تصاویر */}
+       {/* Left column - Images */}
       <Box flex="1">
-        {/* عکس بزرگ */}
         <Box bg="gray.50" borderRadius="xl" p={4}>
           <Image
             src={product.images[activeImage]}
@@ -48,7 +47,7 @@ export default function ProductDetailPage() {
           ))}
         </HStack>
       </Box>
-
+ {/* Right column - Product details */}
       <Box flex="1" display="flex" flexDirection="column" gap={4} dir="ltr">
         <Text fontSize="3xl" fontWeight="bold">
           {product.title}

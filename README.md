@@ -1,36 +1,100 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Game Store 🎮 | فروشگاه بازی و محصولات 
 
-## Getting Started
+یک فروشگاه آنلاین مدرن و حرفه‌ای برای بازی‌ها و محصولات دیجیتال، ساخته شده با **Next.js**، **Redux Toolkit** و **Chakra UI**. این پروژه با بهره‌گیری از APIهای معتبر **RAWG.io** و **DummyJSON**، تجربه‌ای روان و کاربرپسند را برای کاربران فراهم می‌کند.
 
-First, run the development server:
+---
 
+## ✨ ویژگی‌های اصلی
+
+### 🎮 بخش بازی‌ها
+- نمایش لیست بازی‌ها با قابلیت صفحه‌بندی
+- فیلتر هوشمند بر اساس ژانر و پلتفرم
+- جستجوی پیشرفته با قابلیت جستجوی دقیق
+- صفحه جزئیات بازی
+- نمایش اطلاعات کامل شامل امتیاز، تاریخ انتشار، ژانرها و پلتفرم‌ها
+
+### 📦 بخش محصولات
+- نمایش لیست کامل محصولات با قابلیت جستجو
+- انتخاب چندتایی محصولات با **Headless UI Listbox**
+- صفحه جزئیات محصول با گالری تصاویر
+- نمایش اطلاعات محصول شامل قیمت و تخفیف
+
+### 👨‍💼 پنل مدیریت (ادمین)
+- داشبورد مدیریتی با نمایش آمار کاربران و محصولات
+- مدیریت کاربران: مشاهده لیست کاربران، نقش‌ها و اطلاعات
+- مدیریت محصولات: مشاهده لیست محصولات و قیمت‌ها
+- سیستم احراز هویت پیشرفته با **NextAuth.js**
+
+### 🔐 سیستم احراز هویت
+- **ورود هوشمند:**
+  - کاربران با نقش مدیریتی (غیر از نقش ساده کاربر) پس از ورود مستقیماً به پنل ادمین هدایت می‌شوند
+  - کاربران عادی به صفحه لندینگ هدایت می‌شوند
+
+---
+
+## 🚀 شروع به کار
+
+### پیش‌نیازها
+- Node.js 18 یا بالاتر
+- npm یا yarn
+- فیلترشکن (برای بخش بازی‌ها)
+* * *
+### مراحل نصب
 ```bash
+# کلون کردن پروژه
+git clone https://github.com/yourusername/game-store.git
+
+# ورود به پوشه پروژه
+cd game-store
+
+# نصب وابستگی‌ها
+npm install
+# یا
+yarn install
+
+# ساخت فایل محیطی
+cp .env.example .env.local
+
+# اجرای پروژه در محیط توسعه
 npm run dev
-# or
+# یا
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+ ### متغیرهای محیطی
+Create a .env.local file in the root of your project and add the following variables:
+# NextAuth Configuration
+NEXTAUTH_SECRET=your-secret-key-here
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+# API Keys (if needed)
+RAWG_API_KEY=your-rawg-api-key-here   # Only if you use a proxy or your own key
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+### راهنمای استفاده
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+| مسیر              | توضیحات                                      |
+| ----------------- | -------------------------------------------- |
+| `/`               | صفحه لندینگ با نمایش محدود بازی‌ها و محصولات |
+| `/games`          | لیست کامل بازی‌ها با فیلتر و صفحه‌بندی       |
+| `/games/[id]`     | صفحه جزئیات بازی                             |
+| `/products`       | لیست کامل محصولات با قابلیت انتخاب           |
+| `/products/[id]`  | صفحه جزئیات محصول                            |
+| `/admin`          | پنل مدیریت (فقط کاربران مجاز)                |
+| `/admin/products` | صفحه محصولات پنل ادمین                       |
+| `/admin/users`    | صفحه کاربران پنل ادمین                       |
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+___
+
+
+### نکات مهم
+
+1.برای مشاهده لیست بازی‌ها نیاز به فیلترشکن دارید (API بازی‌ها تحریم است)
+
+2.پنل ادمین فقط برای کاربران با نقش مدیریتی قابل دسترسی است
+
+3.در داشبورد مدیریت فقط عملیات Read قابل انجام است
